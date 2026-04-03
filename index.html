@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VITAGUARD X — Smart Bracelet for Elderly, Toddlers & Patients</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #4A6650;       /* Medium Forest Green — warna utama */
+      --primary-light: #D8D5C8; /* Off-White/Cream — aksen terang */
+      --primary-mid: #585750;   /* Olive/Khaki — mid tone */
+      --accent: #4A6650;        /* Medium Green — aksen utama */
+      --accent2: #2E3D30;       /* Dark Forest Green — aksen gelap */
+      --green: #4A6650;         /* Medium Forest Green */
+      --orange: #585750;        /* Olive */
+      --yellow: #D8D5C8;        /* Cream */
+      --dark: #111111;
+      --dark2: #1a1a1a;
+      --card: rgba(22,22,22,0.95);
+      --border: rgba(216,213,200,0.13);
+      --text: #D8D5C8;
+      --muted: #8a8880;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--dark); color: var(--text); overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .9rem 2.5rem;
+      background: rgba(17,17,17,0.95); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(216,213,200,.1);
+    }
+    .nav-brand { display: flex; align-items: center; gap: .7rem; text-decoration: none; }
+    .nav-brand img { height: 34px; }
+    .nav-brand span { font-weight: 800; font-size: 1.05rem; color: var(--text); }
+    .nav-brand .x { color: var(--primary-light); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: .88rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--text); }
+    .btn-nav {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff; border: none; padding: .5rem 1.3rem;
+      border-radius: 50px; font-weight: 700; font-size: .88rem; cursor: pointer;
+      text-decoration: none; transition: opacity .2s;
+    }
+    .btn-nav:hover { opacity: .85; }
+
+    /* ── SECTION HELPERS ── */
+    section { padding: 6rem 2rem; }
+    .inner { max-width: 1160px; margin: 0 auto; }
+    .tag { display: inline-block; color: var(--primary-light); font-size: .75rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: .8rem; }
+    .section-title { font-size: clamp(1.9rem, 3.5vw, 2.8rem); font-weight: 900; line-height: 1.15; margin-bottom: 1rem; }
+    .section-sub { color: var(--muted); font-size: 1rem; line-height: 1.75; max-width: 580px; }
+    .gradient-text { background: linear-gradient(135deg, var(--primary-light), var(--primary), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .btn-primary {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff; padding: .9rem 2.2rem; border-radius: 50px;
+      font-weight: 700; font-size: 1rem; text-decoration: none;
+      box-shadow: 0 4px 24px rgba(74,102,80,.4);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(74,102,80,.6); }
+    .btn-outline {
+      display: inline-block;
+      border: 1.5px solid var(--border); color: var(--text);
+      padding: .9rem 2.2rem; border-radius: 50px;
+      font-weight: 600; font-size: 1rem; text-decoration: none;
+      transition: border-color .2s, background .2s;
+    }
+    .btn-outline:hover { border-color: var(--primary); background: rgba(74,102,80,.10); }
+
+    /* ══════════════════════════════════════
+       A — AWARENESS (HERO)
+    ══════════════════════════════════════ */
+    #awareness {
+      min-height: 100vh; display: flex; align-items: center;
+      padding-top: 5rem;
+      background:
+        radial-gradient(ellipse 80% 55% at 50% -5%, rgba(74,102,80,.18) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 40% at 85% 85%, rgba(46,61,48,.2) 0%, transparent 55%),
+        var(--dark);
+    }
+    .awareness-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .awareness-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(74,102,80,.15); border: 1px solid rgba(216,213,200,.3);
+      color: var(--primary-light); padding: .35rem 1rem; border-radius: 50px;
+      font-size: .78rem; font-weight: 700; letter-spacing: .5px; margin-bottom: 1.4rem;
+    }
+    .pulse-dot { width: 7px; height: 7px; background: var(--primary-light); border-radius: 50%; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.5)} }
+    .awareness-text h1 { font-size: clamp(2.4rem, 4.5vw, 3.6rem); font-weight: 900; line-height: 1.1; margin-bottom: 1.2rem; }
+    .awareness-text p { color: var(--muted); font-size: 1.05rem; line-height: 1.8; margin-bottom: 2rem; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero-stat { display: flex; gap: 2rem; margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+    .hstat-num { font-size: 1.8rem; font-weight: 900; }
+    .hstat-label { color: var(--muted); font-size: .8rem; margin-top: .1rem; }
+
+    /* ══════════════════════════════════════
+       CSS SMARTWATCH MOCKUP (HERO)
+    ══════════════════════════════════════ */
+    .css-watch-container {
+      position: relative; width: 100%; height: 420px;
+      display: flex; align-items: center; justify-content: center;
+      perspective: 1000px;
+    }
+    .glow-orb {
+      position: absolute; width: 320px; height: 320px;
+      background: radial-gradient(circle, rgba(74,102,80,.25), transparent 70%);
+      border-radius: 50%; animation: pulse-glow 4s ease-in-out infinite alternate;
+      z-index: 0; pointer-events: none;
+    }
+    @keyframes pulse-glow { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(1.15); opacity: 1; } }
+    .css-watch {
+      position: relative; width: 160px; height: 320px;
+      background: linear-gradient(145deg, #2a2a2a, #151515);
+      border-radius: 45px;
+      box-shadow: 
+        inset 1px 1px 3px rgba(255,255,255,0.1), 
+        inset -3px -3px 12px rgba(0,0,0,0.9), 
+        12px 16px 40px rgba(0,0,0,0.7), 
+        0 0 50px rgba(74,102,80,.25);
+      display: flex; align-items: center; justify-content: center;
+      transform: rotateY(-18deg) rotateX(10deg);
+      transform-style: preserve-3d;
+      animation: float-watch 6s ease-in-out infinite; z-index: 2;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+    .css-watch::before, .css-watch::after {
+      content: ''; position: absolute; left: 24px; right: 24px; height: 50px;
+      background: linear-gradient(to bottom, #333, #222); z-index: -1;
+    }
+    .css-watch::before { top: -40px; border-radius: 12px 12px 0 0; }
+    .css-watch::after { bottom: -40px; border-radius: 0 0 12px 12px; }
+    @keyframes float-watch { 0%, 100% { transform: translateY(0) rotateY(-18deg) rotateX(10deg); } 50% { transform: translateY(-15px) rotateY(-12deg) rotateX(15deg); } }
+    .watch-screen {
+      width: 130px; height: 180px; background: #000; border-radius: 20px; border: 2px solid #111;
+      box-shadow: inset 0 0 12px rgba(0,0,0,1); padding: 15px; box-sizing: border-box;
+      position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center;
+    }
+    .watch-screen::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 40%;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.08), transparent);
+      border-radius: 20px 20px 0 0; pointer-events: none;
+    }
+    .watch-header { 
+      color: #92b89d; font-size: 0.75rem; font-weight: 800; text-align: center; 
+      margin-bottom: 22px; letter-spacing: 0.5px; 
+    }
+    .vitals { display: flex; flex-direction: column; gap: 14px; }
+    .vital-item { display: flex; align-items: center; justify-content: space-between; }
+    .vital-icon { font-size: 1rem; filter: drop-shadow(0 0 4px rgba(255,255,255,0.2)); }
+    .heart-pulse { display: inline-block; animation: beat .8s infinite alternate; color: #ef4444; }
+    @keyframes beat { to { transform: scale(1.25); } }
+    .vital-value { color: #fff; font-size: 0.85rem; font-weight: 700; font-family: monospace; letter-spacing: 0.5px; }
+    .emergency-btn-mock {
+      position: absolute; right: -6px; top: 45%; width: 6px; height: 45px; background: #3b82f6;
+      border-radius: 0 4px 4px 0; box-shadow: inset 1px 0 3px rgba(255,255,255,0.4);
+    }
+    .floating-chip {
+      position: absolute; background: rgba(22,22,22,0.85); backdrop-filter: blur(12px);
+      border: 1px solid rgba(74,102,80,.4); padding: 8px 14px; border-radius: 50px;
+      color: #fff; font-size: 0.75rem; font-weight: 600; display: flex; align-items: center; gap: 8px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4); z-index: 3;
+    }
+    .fc-1 { top: 10%; right: 2%; animation: float-chip 5s ease-in-out infinite 0.5s; }
+    .fc-2 { bottom: 12%; right: 12%; animation: float-chip 7s ease-in-out infinite 1.5s; }
+    .fc-3 { top: 45%; left: -2%; animation: float-chip 6s ease-in-out infinite 0s; }
+    @keyframes float-chip { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    .fc-icon {
+      width: 26px; height: 26px; background: rgba(74,102,80,.2); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 0.85rem;
+    }
+
+
+    /* ══════════════════════════════════════
+       I — INTEREST (MASALAH + SOLUSI)
+    ══════════════════════════════════════ */
+    #interest { background: var(--dark2); }
+    .interest-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-bottom: 4rem; }
+    .problem-box {
+      background: rgba(88,87,80,.15); border: 1px solid rgba(88,87,80,.4);
+      border-radius: 16px; padding: 1.8rem;
+    }
+    .problem-box h3 { color: #D8D5C8; font-size: 1rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: .5rem; }
+    .problem-list { list-style: none; display: flex; flex-direction: column; gap: .7rem; }
+    .problem-list li { display: flex; align-items: flex-start; gap: .7rem; color: var(--muted); font-size: .9rem; line-height: 1.5; }
+    .problem-list li::before { content: "✕"; color: #D8D5C8; font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+    .solution-box {
+      background: rgba(46,61,48,.2); border: 1px solid rgba(74,102,80,.4);
+      border-radius: 16px; padding: 1.8rem;
+    }
+    .solution-box h3 { color: #4A6650; font-size: 1rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: .5rem; }
+    .solution-list { list-style: none; display: flex; flex-direction: column; gap: .7rem; }
+    .solution-list li { display: flex; align-items: flex-start; gap: .7rem; color: var(--muted); font-size: .9rem; line-height: 1.5; }
+    .solution-list li::before { content: "✓"; color: #4A6650; font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+    /* Sensor cards */
+    .sensors-title { text-align: center; margin-bottom: 2.5rem; }
+    .sensors-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 1rem; }
+    .sensor-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.4rem 1rem; text-align: center;
+      transition: transform .2s, border-color .2s;
+    }
+    .sensor-card:nth-child(1) { border-top: 3px solid #D8D5C8; }
+    .sensor-card:nth-child(2) { border-top: 3px solid #4A6650; }
+    .sensor-card:nth-child(3) { border-top: 3px solid #585750; }
+    .sensor-card:nth-child(4) { border-top: 3px solid #2E3D30; }
+    .sensor-card:nth-child(5) { border-top: 3px solid #4A6650; }
+    .sensor-card:hover { transform: translateY(-4px); border-color: rgba(216,213,200,.4); }
+    .sensor-card .s-icon { font-size: 1.8rem; margin-bottom: .7rem; }
+    .sensor-card h4 { font-size: .82rem; font-weight: 700; margin-bottom: .3rem; }
+    .sensor-card p { color: var(--muted); font-size: .75rem; line-height: 1.5; }
+
+    /* ══════════════════════════════════════
+       D — DESIRE (FITUR + BUKTI)
+    ══════════════════════════════════════ */
+    #desire { background: var(--dark); }
+    .desire-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 3rem; }
+    .features-list { display: flex; flex-direction: column; gap: 1.2rem; }
+    .feat-item {
+      display: flex; gap: 1rem; align-items: flex-start;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.2rem 1.4rem;
+      transition: border-color .2s, transform .2s;
+    }
+    .feat-item:hover { border-color: rgba(74,102,80,.45); transform: translateX(4px); }
+    .feat-ico { font-size: 1.6rem; flex-shrink: 0; width: 44px; height: 44px; border-radius: 10px; background: rgba(74,102,80,.2); display: flex; align-items: center; justify-content: center; }
+    .feat-text h4 { font-size: .95rem; font-weight: 700; margin-bottom: .3rem; }
+    .feat-text p { color: var(--muted); font-size: .84rem; line-height: 1.55; }
+    
+    /* ══════════════════════════════════════
+       CSS PHONE MOCKUP (FEATURES)
+    ══════════════════════════════════════ */
+    .css-phone-container {
+      position: relative; width: 100%; height: 420px;
+      display: flex; align-items: center; justify-content: center;
+      perspective: 1200px;
+    }
+    .phone-glow {
+      position: absolute; width: 260px; height: 350px;
+      background: radial-gradient(ellipse, rgba(59,130,246,.15), transparent 60%);
+      border-radius: 50%; opacity: 0.8; z-index: 0; pointer-events: none;
+    }
+    .css-phone {
+      position: relative; width: 220px; height: 430px;
+      background: #111; border-radius: 35px;
+      box-shadow: 
+        inset 0 0 0 2px #333,
+        inset 0 0 0 6px #050505,
+        15px 25px 45px rgba(0,0,0,0.6),
+        -5px -5px 20px rgba(255,255,255,0.03);
+      display: flex; flex-direction: column; align-items: center;
+      transform: rotateY(-15deg) rotateX(8deg);
+      transform-style: preserve-3d;
+      animation: float-phone 7s ease-in-out infinite; z-index: 2;
+      overflow: hidden; border: 1px solid rgba(255,255,255,0.1);
+    }
+    @keyframes float-phone { 0%, 100% { transform: translateY(0) rotateY(-15deg) rotateX(8deg); } 50% { transform: translateY(-12px) rotateY(-10deg) rotateX(12deg); } }
+    .phone-notch {
+      position: absolute; top: 0; width: 90px; height: 22px;
+      background: #050505; border-radius: 0 0 12px 12px; z-index: 10;
+    }
+    .phone-screen {
+      width: 100%; height: 100%; background: #0a0a0a;
+      padding: 45px 15px 20px; box-sizing: border-box;
+      display: flex; flex-direction: column; gap: 14px;
+      position: relative;
+    }
+    .telegram-alert {
+      background: rgba(30,41,59, 0.95); border-left: 3px solid #ef4444;
+      border-radius: 10px; padding: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      transform: translateX(120%);
+      animation: slide-in-alert 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 1s;
+    }
+    @keyframes slide-in-alert { to { transform: translateX(0); } }
+    .ta-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .ta-icon { width: 20px; height: 20px; background: #3b82f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; }
+    .ta-title { color: #94a3b8; font-size: 0.7rem; font-weight: 700; }
+    .ta-body { color: #f8FAFC; font-size: 0.75rem; font-weight: 600; line-height: 1.4; }
+    .ta-time { color: #64748b; font-size: 0.65rem; text-align: right; margin-top: 6px; }
+    
+    .map-mockup {
+      flex: 1; min-height: 140px; background: #1e293b;
+      border-radius: 12px; position: relative; overflow: hidden;
+      margin-top: 5px; opacity: 0; border: 1px solid rgba(255,255,255,0.05);
+      animation: fade-in-map 1s ease forwards 2s;
+    }
+    @keyframes fade-in-map { to { opacity: 1; } }
+    .map-grid {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    .map-route {
+      position: absolute; top: 50%; left: 15%; right: 15%; height: 3px;
+      background: #3b82f6; border-radius: 3px; filter: drop-shadow(0 2px 4px rgba(59,130,246,0.5));
+    }
+    .map-pin {
+      position: absolute; top: 38%; left: 50%; transform: translateX(-50%);
+      font-size: 1.4rem; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));
+      animation: bounce-pin 2s ease infinite; z-index: 2;
+    }
+    @keyframes bounce-pin { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -8px); } }
+    .radar-ring {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 40px; height: 40px; border-radius: 50%; border: 2px solid #3b82f6;
+      opacity: 0; animation: radar-ping 2s ease-out infinite; filter: drop-shadow(0 0 4px rgba(59,130,246,0.8));
+    }
+    @keyframes radar-ping { 0% { width: 0; height: 0; opacity: 1; } 100% { width: 80px; height: 80px; opacity: 0; } }
+
+    /* Evidence */
+    .evidence-strip {
+      margin-top: 4rem; display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem;
+    }
+    .ev-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.8rem; text-align: center;
+    }
+    .ev-num { font-size: 2.8rem; font-weight: 900; }
+    .ev-desc { color: var(--muted); font-size: .85rem; margin-top: .5rem; line-height: 1.5; }
+    .ev-source { color: var(--primary-light); font-size: .72rem; margin-top: .6rem; font-style: italic; }
+
+    /* Testimonial / How it works */
+    .how-section { background: var(--dark2); }
+    .steps-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; margin-top: 3rem; position: relative; }
+    .steps-grid::before {
+      content: ''; position: absolute; top: 28px; left: 10%; right: 10%; height: 2px;
+      background: linear-gradient(90deg, var(--primary-mid), var(--primary), var(--primary-light));
+      opacity: .4; z-index: 0;
+    }
+    .step-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.6rem 1.2rem; text-align: center;
+      position: relative; z-index: 1;
+    }
+    .step-num {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff; font-weight: 800; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1rem;
+    }    .step-card h4 { font-size: .9rem; font-weight: 700; margin-bottom: .4rem; }
+    .step-card p { color: var(--muted); font-size: .82rem; line-height: 1.5; }
+
+    /* ══════════════════════════════════════
+       A — ACTION (CTA)
+    ══════════════════════════════════════ */
+    #action {
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 50%, rgba(74,102,80,.12) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 40% at 10% 90%, rgba(46,61,48,.15) 0%, transparent 55%),
+        var(--dark);
+      text-align: center;
+    }
+    .action-inner { max-width: 720px; margin: 0 auto; }
+    .action-inner .section-title { font-size: clamp(2rem, 4vw, 3rem); }
+    .action-inner p { color: var(--muted); font-size: 1.05rem; line-height: 1.75; margin: 1.2rem 0 2.5rem; }
+    .action-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    /* Product Slot 3 — CTA visual */
+    .slot-cta { height: 300px; max-width: 600px; margin: 3rem auto 0; border-radius: 20px; }
+    /* Form */
+    .contact-form {
+      max-width: 500px; margin: 3rem auto 0;
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .contact-form input, .contact-form select {
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--text); padding: .8rem 1.1rem; border-radius: 10px;
+      font-size: .9rem; font-family: inherit; outline: none;
+      transition: border-color .2s;
+    }
+    .contact-form input:focus, .contact-form select:focus { border-color: var(--primary-light); }
+    .contact-form input::placeholder { color: var(--muted); }
+    .contact-form .btn-primary { width: 100%; text-align: center; border: none; cursor: pointer; font-family: inherit; }
+
+    footer {
+      background: var(--dark2); border-top: 1px solid rgba(216,213,200,.1);
+      padding: 2.5rem 2rem; text-align: center;
+    }
+    .footer-brand { display: flex; align-items: center; justify-content: center; gap: .6rem; margin-bottom: .8rem; }
+    .footer-brand img { height: 28px; }
+    .footer-brand span { font-weight: 800; font-size: .95rem; }
+    footer p { color: var(--muted); font-size: .82rem; line-height: 1.6; }
+    footer .ref { font-size: .75rem; margin-top: .5rem; opacity: .6; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .awareness-grid, .interest-intro, .desire-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+      .sensors-grid { grid-template-columns: repeat(3,1fr); }
+      .steps-grid { grid-template-columns: repeat(2,1fr); }
+      .steps-grid::before { display: none; }
+      .evidence-strip { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 600px) {
+      .sensors-grid { grid-template-columns: repeat(2,1fr); }
+      .steps-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-brand" href="#">
+      <img src="aida-logo.png" alt="AIDA Logo" onerror="this.style.display='none'" />
+      <span>VITAGUARD <span class="x">X</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#awareness">Home</a></li>
+      <li><a href="#interest">Problem</a></li>
+      <li><a href="#desire">Features</a></li>
+      <li><a href="#action">Get Yours</a></li>
+    </ul>
+    <a href="#action" class="btn-nav">Pre-Order Now</a>
+  </nav>
+
+  <!-- ══════════════════════════════════════
+       A — AWARENESS
+  ══════════════════════════════════════ -->
+  <section id="awareness">
+    <div class="inner">
+      <div class="awareness-grid">
+        <div class="awareness-text">
+          <div class="awareness-badge">
+            <span class="pulse-dot"></span>
+            #1 Health Innovation for Vulnerable Loved Ones
+          </div>
+          <h1>
+            Protect Your Loved Ones<br/>
+            <span class="gradient-text">24 Hours Non-Stop</span>
+          </h1>
+          <p>
+            VITAGUARD X is an advanced smart bracelet that monitors real-time vital signs for the elderly, toddlers, and patients with specific medical conditions — heart rate, oxygen, body temperature, to fall detection — and instantly sends emergency notifications to the family via Telegram within seconds.
+          </p>
+          <div class="hero-btns">
+            <a href="#action" class="btn-primary">🛒 Pre-Order Now</a>
+            <a href="#interest" class="btn-outline">Learn More</a>
+          </div>
+          <div class="hero-stat">
+            <div>
+              <div class="hstat-num gradient-text">30%</div>
+              <div class="hstat-label">Lower risk of complications</div>
+            </div>
+            <div>
+              <div class="hstat-num gradient-text">&lt;5 sec</div>
+              <div class="hstat-label">Emergency alert sent</div>
+            </div>
+            <div>
+              <div class="hstat-num gradient-text">5</div>
+              <div class="hstat-label">Integrated smart sensors</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CSS Animated Smartwatch Mockup -->
+        <div class="css-watch-container">
+          <div class="glow-orb"></div>
+          
+          <div class="css-watch">
+            <div class="watch-screen">
+              <div class="watch-header">VITAGUARD X</div>
+              <div class="vitals">
+                <div class="vital-item">
+                  <span class="vital-icon heart-pulse">❤️</span>
+                  <span class="vital-value">72 bpm</span>
+                </div>
+                <div class="vital-item">
+                  <span class="vital-icon" style="color: #60a5fa;">🫁</span>
+                  <span class="vital-value">98% SpO₂</span>
+                </div>
+                <div class="vital-item">
+                  <span class="vital-icon" style="color: #f59e0b;">🌡️</span>
+                  <span class="vital-value">36.5°C</span>
+                </div>
+              </div>
+            </div>
+            <div class="emergency-btn-mock"></div>
+          </div>
+
+          <!-- Floating Info Chips -->
+          <div class="floating-chip fc-1">
+            <div class="fc-icon">📡</div>
+            <span>Auto Alert</span>
+          </div>
+          <div class="floating-chip fc-2">
+            <div class="fc-icon">🚨</div>
+            <span>Fall Detection</span>
+          </div>
+          <div class="floating-chip fc-3">
+            <div class="fc-icon">💓</div>
+            <span>Heart Rate Monitor</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       I — INTEREST
+  ══════════════════════════════════════ -->
+  <section id="interest">
+    <div class="inner">
+      <div style="text-align:center; margin-bottom:3rem;">
+        <div class="tag">Why VITAGUARD X?</div>
+        <h2 class="section-title">Real Problems Often Ignored</h2>
+        <p class="section-sub" style="margin:0 auto;">Every year, thousands of elderly people, toddlers, and patients with medical conditions experience medical emergencies that are treated too late due to a lack of real-time monitoring.</p>
+      </div>
+
+      <div class="interest-intro">
+        <div class="problem-box">
+          <h3>⚠️ Without VITAGUARD X</h3>
+          <ul class="problem-list">
+            <li>Emergencies go undetected until it's too late</li>
+            <li>Families are unaware when a vulnerable relative faces a sudden emergency or faints</li>
+            <li>No daily monitoring of heart rate & oxygen</li>
+            <li>Delayed medical response, highly increasing complication risks</li>
+            <li>The elderly and patients feel unsafe when left alone</li>
+          </ul>
+        </div>
+        <div class="solution-box">
+          <h3>✅ With VITAGUARD X</h3>
+          <ul class="solution-list">
+            <li>24/7 automated emergency detection powered by advanced sensors</li>
+            <li>Telegram notifications to family in &lt;5 seconds</li>
+            <li>Real-time monitoring of heart rate, SpO₂, and body temperature</li>
+            <li>Complication risks reduced by up to 30%</li>
+            <li>Vulnerable loved ones stay monitored, family stays worry-free</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sensors-title">
+        <div class="tag">Sensor Technology</div>
+        <h2 class="section-title">5 Advanced Sensors in One Bracelet</h2>
+      </div>
+      <div class="sensors-grid">
+        <div class="sensor-card">
+          <div class="s-icon">❤️</div>
+          <h4>Heart Rate</h4>
+          <p>Continuous heart rate monitoring & anomaly detection</p>
+        </div>
+        <div class="sensor-card">
+          <div class="s-icon">🫁</div>
+          <h4>Blood Oxygen (SpO₂)</h4>
+          <p>Monitor blood oxygen levels, early warning for hypoxia</p>
+        </div>
+        <div class="sensor-card">
+          <div class="s-icon">🌡️</div>
+          <h4>Body Temperature</h4>
+          <p>Automatically detect fever or hypothermia</p>
+        </div>
+        <div class="sensor-card">
+          <div class="s-icon">⚡</div>
+          <h4>Accelerometer</h4>
+          <p>Detect daily physical activities and movements</p>
+        </div>
+        <div class="sensor-card">
+          <div class="s-icon">🔄</div>
+          <h4>Gyroscope</h4>
+          <p>Accurate fall detection based on body orientation</p>
+        </div>      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       D — DESIRE
+  ══════════════════════════════════════ -->
+  <section id="desire">
+    <div class="inner">
+      <div class="tag">Why You Need VITAGUARD X</div>
+      <h2 class="section-title">Features That Make a Real Difference</h2>
+
+      <div class="desire-layout">
+        <div class="features-list">
+          <div class="feat-item">
+            <div class="feat-ico">📡</div>
+            <div class="feat-text">
+              <h4>Emergency Notifications via Telegram Bot</h4>
+              <p>When an abnormal condition is detected, the Telegram bot instantly sends an alert + GPS location to all registered family contacts.</p>
+            </div>
+          </div>
+          <div class="feat-item">
+            <div class="feat-ico">📍</div>
+            <div class="feat-text">
+              <h4>GPS Real-Time Tracking</h4>
+              <p>Know your loved one's location at any time. During an emergency, the exact location is automatically sent to the family.</p>
+            </div>
+          </div>
+          
+        </div>
+
+        <!-- CSS Animated Phone Mockup -->
+        <div class="css-phone-container">
+          <div class="phone-glow"></div>
+          
+          <div class="css-phone">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              
+              <!-- Telegram Alert Animation -->
+              <div class="telegram-alert">
+                <div class="ta-header">
+                  <div class="ta-icon">🤖</div>
+                  <div class="ta-title">Vitaguard Bot</div>
+                </div>
+                <div class="ta-body">⚠️ EMERGENCY! Abnormal heart rate detected (135 bpm). Proceed to location immediately.</div>
+                <div class="ta-time">Just now</div>
+              </div>
+
+              <!-- GPS Live Tracking Map Animation -->
+              <div class="map-mockup">
+                <div class="map-grid"></div>
+                <div class="map-route"></div>
+                <div class="radar-ring"></div>
+                <div class="map-pin">📍</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Evidence -->
+      <div class="evidence-strip">
+        <div class="ev-card">
+          <div class="ev-num gradient-text">30%</div>
+          <div class="ev-desc">Reduction in complication & mortality risks due to delayed emergency response</div>
+          <div class="ev-source">Nurhayati et al., 2024</div>
+        </div>
+        <div class="ev-card">
+          <div class="ev-num gradient-text">1 in 3</div>
+          <div class="ev-desc">Vulnerable individuals experience sudden medical emergencies every year in Indonesia</div>
+          <div class="ev-source">Agustiningrum et al., 2023</div>
+        </div>
+        <div class="ev-card">
+          <div class="ev-num gradient-text">&lt;5 sec</div>
+          <div class="ev-desc">Time required to send emergency notifications to families via GPS-integrated Telegram Bot</div>
+          <div class="ev-source">VITAGUARD X Internal Test</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section">
+    <div class="inner">
+      <div style="text-align:center; margin-bottom:1rem;">
+        <div class="tag">How It Works</div>
+        <h2 class="section-title">As Easy as Wearing a Normal Watch</h2>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <h4>Wear the Bracelet</h4>
+          <p>Put the VITAGUARD X on the wearer's wrist just like a regular watch</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <h4>Connect the App</h4>
+          <p>Scan the QR code, register family contacts & Telegram Bot in 2 minutes</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <h4>Monitor Real-Time</h4>
+          <p>All vital data is visible on the dashboard. Sensors work automatically 24/7</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">4</div>
+          <h4>Receive Emergency Alerts</h4>
+          <p>When an anomaly is detected, notifications + GPS go straight to the family's Telegram</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       A — ACTION
+  ══════════════════════════════════════ -->
+  <section id="action">
+    <div class="inner">
+      <div class="action-inner">
+        <div class="tag">Take Action Now</div>
+        <h2 class="section-title">
+          Protect Your Loved Ones<br/>
+          <span class="gradient-text">Before It's Too Late</span>
+        </h2>
+        <p>Don't wait for an emergency to happen. Register now and be the first to get VITAGUARD X upon launch.</p>
+        <div class="action-btns">
+          <a href="#form" class="btn-primary">🛒 Pre-Order VITAGUARD X</a>
+          <a href="#" class="btn-outline">💬 Contact Us via WhatsApp</a>
+        </div>
+
+
+
+        <!-- FORM -->
+        <form class="contact-form" id="form" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <input type="text" placeholder="Full Name" required />
+            <input type="tel" placeholder="WhatsApp Number" required />
+          </div>
+          <input type="email" placeholder="Email Address" required />
+          <select>
+            <option value="" disabled selected>City / Regency</option>
+            <option>Jakarta</option>
+            <option>Surabaya</option>
+            <option>Bandung</option>
+            <option>Medan</option>
+            <option>Makassar</option>
+            <option>Other cities</option>
+          </select>
+          <button type="submit" class="btn-primary">✅ Register Me Now</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">
+      <img src="aida-logo.png" alt="AIDA" onerror="this.style.display='none'" />
+      <span>VITAGUARD <span class="x" style="color:var(--primary)">X</span></span>
+    </div>
+    <p>Powered by <strong>VITAGUARD</strong> — Healthcare Technology Innovation for Indonesian Families & Patients</p>
+    <p style="margin-top:.8rem; font-size:.75rem; opacity:.4;">© 2025 VITAGUARD X. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button');
+      btn.textContent = '🎉 Successfully Registered!';
+      btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+      btn.disabled = true;
+    }
+    // Smooth reveal on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.feat-item, .sensor-card, .step-card, .ev-card').forEach(el => {
+      el.style.opacity = '0'; el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity .5s ease, transform .5s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
